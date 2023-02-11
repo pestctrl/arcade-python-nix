@@ -5,6 +5,7 @@
   unstablePymunk,
   unstablePillow,
   libGL,
+  lib,
   ...
 }: let
   pytiled_parser = python310Packages.buildPythonPackage {
@@ -32,15 +33,13 @@
   };
 in (python310Packages.buildPythonPackage {
   name = "arcade";
-  nativeBuildInputs = [
-    libGL
-  ];
   propagatedBuildInputs = with python310Packages; [
     unstablePillow
     unstablePymunk
     pytiled_parser
     myPyglet
   ];
+  DYLD_LIBRARY_PATH = "${lib.makeLibraryPath [libGL]}";
   src = fetchFromGitHub {
     repo = "arcade";
     owner = "pythonarcade";
