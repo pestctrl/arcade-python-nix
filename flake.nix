@@ -2,7 +2,7 @@
   description = "Devshell with working arcade pypi package";
 
   inputs = {
-    nixpkgs.url = github:nixos/nixpkgs?ref=22.11;
+    nixpkgs.url = github:nixos/nixpkgs?ref=24.11;
     nixpkgs-unstable.url = github:nixos/nixpkgs?ref=nixos-unstable;
   };
 
@@ -19,12 +19,6 @@
     pkgs = genSystems (system:
       import nixpkgs {
         inherit system;
-        overlays = [
-          (_: super: {
-            unstablePymunk = unstable.${super.system}.python310Packages.pymunk;
-            unstablePillow = unstable.${super.system}.python310Packages.pillow;
-          })
-        ];
       });
   in {
     packages = genSystems (system: {
